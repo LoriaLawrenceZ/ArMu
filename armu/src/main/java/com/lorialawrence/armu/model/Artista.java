@@ -2,19 +2,24 @@ package com.lorialawrence.armu.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "artistas")
 public class Artista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_artista")
     private Long id;
-    private Long nome;
-    private Long idade;
+    private String nome;
+    private int idade;
     private String terraNatal;
+    @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Musica> musicas;
 
     public Artista () {}
 
-    public Artista (Long nome, Long idade, String terraNatal) {
+    public Artista (String nome, int idade, String terraNatal) {
         this.nome = nome;
         this.idade = idade;
         this.terraNatal = terraNatal;
@@ -27,17 +32,17 @@ public class Artista {
         this.id = id;
     }
 
-    public Long getNome() {
+    public String getNome() {
         return nome;
     }
-    public void setNome(Long nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public Long getIdade() {
+    public int getIdade() {
         return idade;
     }
-    public void setIdade(Long idade) {
+    public void setIdade(int idade) {
         this.idade = idade;
     }
 
@@ -46,5 +51,19 @@ public class Artista {
     }
     public void setTerraNatal(String terraNatal) {
         this.terraNatal = terraNatal;
+    }
+
+    public List<Musica> getMusicas() {
+        return musicas;
+    }
+    public void setMusicas(List<Musica> musica) {
+        this.musicas = musica;
+    }
+
+    @Override
+    public String toString() {
+        return """
+                Artista: %s
+                """.formatted(nome);
     }
 }

@@ -3,14 +3,13 @@ package com.lorialawrence.armu.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "musicas")
 public class Musica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_musica")
     private Long id;
     private String nome;
     @Enumerated(EnumType.STRING)
@@ -18,11 +17,9 @@ public class Musica {
     private String duracao;
     private String letra;
     private LocalDate dataLancamento;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_artista")
     private Artista artista;
-    @OneToMany(mappedBy = "musica", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Artista> features = new ArrayList<>();
 
     public Musica () {}
 
@@ -84,10 +81,15 @@ public class Musica {
         this.artista = artista;
     }
 
-    public List<Artista> getFeatures() {
-        return features;
-    }
-    public void setFeatures(List<Artista> features) {
-        this.features = features;
+    @Override
+    public String toString() {
+        return """
+                Música: %s
+                    - Gênero: %s
+                    - Duração: %s
+                    - Data de lançamento: %s
+                    - Artista: %s
+                    - Letra: %s
+                """.formatted(nome, genero, duracao, dataLancamento, artista.getNome(), letra);
     }
 }
