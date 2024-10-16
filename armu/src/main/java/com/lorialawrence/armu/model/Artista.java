@@ -62,8 +62,6 @@ public class Artista {
 
     @Override
     public String toString() {
-        return """
-                Artista: %s
-                """.formatted(nome);
+        return "Artista: " + nome + "\n" + musicas;
     }
 }

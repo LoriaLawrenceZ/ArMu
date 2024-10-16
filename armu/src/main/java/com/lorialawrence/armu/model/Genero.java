@@ -21,5 +21,5 @@ public enum Genero {
     INDIE,
     KPOP,
     JPOP,
-    OUTRO
+    OUTRO;
 }

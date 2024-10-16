@@ -7,13 +7,14 @@ import com.lorialawrence.armu.repository.ArtistaRepository;
 import com.lorialawrence.armu.repository.MusicaRepository;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
 
-    private final Scanner sc = new Scanner(System.in, "latin1");
+    private final Scanner sc = new Scanner(System.in);
     private final ArtistaRepository artistaRepository;
     private final MusicaRepository musicaRepository;
 
@@ -103,18 +104,24 @@ public class Main {
             a -> {
                 System.out.println("Digite o nome da música: ");
                 String nome = sc.nextLine();
-                System.out.println("Digite o gênero da música: ");
+
+                Arrays.stream(Genero.values()).forEach(g -> System.out.print(g + "; "));
+                System.out.println("\nDigite o gênero da música: ");
                 String genero = sc.nextLine();
                 Genero tipoGenero = Genero.valueOf(genero.toUpperCase());
+
                 System.out.println("Digite a duração da música: ");
                 String duracao = sc.nextLine();
+
                 System.out.println("Digite a letra da música: ");
                 String letra = sc.nextLine();
+
                 System.out.println("Digite a data de lançamento da música: ");
                 LocalDate dataLancamento = LocalDate.parse(sc.nextLine(), java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
                 Musica musica = new Musica(nome, tipoGenero, duracao, letra, dataLancamento, a);
                 musicaRepository.save(musica);
+                a.getMusicas().add(musica);
             },
             () -> System.out.println("Artista não encontrado.")
         );
@@ -122,10 +129,7 @@ public class Main {
 
     private void listarArtistas() {
         List<Artista> artistas = artistaRepository.findAll();
-        artistas.forEach(a -> {
-            System.out.println(a);
-            a.getMusicas().forEach(System.out::println);
-        });
+        artistas.forEach(System.out::println);
     }
 
     private void listarMusicas() {

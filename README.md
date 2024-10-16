@@ -29,3 +29,29 @@ Vamos implementar uma aplicação para armazenar dados de nossos artistas e mús
 
 
 Bom desafio!
+
+---
+
+---
+
+---
+
+1. Spring initializer 
+  - PostgreSQL Driver
+  - Spring Data JPA
+2. application.properties
+   - Setando a url do banco de dados
+      - `spring.datasource.url=jdbc:postgresql://localhost:5432/armu`
+   - Setando o usuário do banco de dados
+      - `spring.datasource.username=postgres`
+   - Setando a senha do banco de dados
+      - `spring.datasource.password=postgres`
+   - Trecho que explicita que permite o hibernate crie as tabelas automaticamente
+      - `spring.jpa.hibernate.ddl-auto=update`
+   - Trecho que permite que o hibernate mostre o sql gerado
+      - `spring.jpa.show-sql=true`
+   - Trecho que permite que o hibernate formate o sql gerado
+      - `spring.jpa.properties.hibernate.format_sql=true`
+   - Trecho que explicita o dialeto do banco de dados
+      - `hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect`
+3.
