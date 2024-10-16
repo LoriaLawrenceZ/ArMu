@@ -37,8 +37,7 @@ public class Main {
                         2 - Cadastrar música
                         3 - Listar artistas
                         4 - Listar músicas
-                        5 - Pesquisar artista por nome
-                        6 - Pesquisar música por nome
+                        5 - Pesquisar músicas de um(a) artista
                         
                         0 - Sair
                         """);
@@ -51,7 +50,6 @@ public class Main {
                     !escolhaMenu.equals("3") &&
                     !escolhaMenu.equals("4") &&
                     !escolhaMenu.equals("5") &&
-                    !escolhaMenu.equals("6") &&
                     !escolhaMenu.equals("0")
             );
 
@@ -69,10 +67,7 @@ public class Main {
                     listarMusicas();
                     break;
                 case "5":
-                    pesquisarArtistaPorNome();
-                    break;
-                case "6":
-                    pesquisarMusicaPorNome();
+                    pesquisarMusicasDeArtista();
                     break;
                 case "0":
                     System.out.println("Saindo...");
@@ -137,11 +132,10 @@ public class Main {
         musicas.forEach(System.out::println);
     }
 
-    private void pesquisarArtistaPorNome() {
-
-    }
-
-    private void pesquisarMusicaPorNome() {
-
+    private void pesquisarMusicasDeArtista() {
+        System.out.println("Buscar músicas de qual artista?");
+        String nomeArtista = sc.nextLine();
+        List<Musica> musicas = artistaRepository.buscarMusicasPorArtista(nomeArtista);
+        musicas.forEach(System.out::println);
     }
 }
